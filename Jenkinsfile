@@ -1,7 +1,8 @@
 pipeline{
-   agent any
+   agent none
       stages {
-           stage('build') {
+           stage ('build') {
+           agent {label 'c-project'}
                 steps { 
                         echo "Hello"
 }
