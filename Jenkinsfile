@@ -1,7 +1,7 @@
 pipeline{
    agent any
-      scripts{
-           script('build') {
+      stages {
+           stage('build') {
                 steps { 
                         echo "Hello"
 }
