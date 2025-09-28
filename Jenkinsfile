@@ -1,25 +1,23 @@
-pipeline{
-   agent none
-      tools {
-        jdk 'jdk17'
-        maven 'maven3'
-    }
-      stages {
-           stage ('checkout code') {
-      
-           agent {label 'c-project'}
-                steps { 
-                     git branch: 'main',
-                     url: 'https://github.com/Suprith25/Jenkins-mini-project.git'
-                     
-                        
-}
-}
-       stage('Build') {
+pipeline {
+    agent any
+
+    tools {
+        jdk 'jdk17'      // must match Manage Jenkins → Tools name
+        maven 'maven3'   // must match Tools name
+    }
+
+    stages {
+        stage('Checkout Code') {
             steps {
-                dir('sample-app') {
-                    sh 'mvn clean package -DskipTests'
-                }
-            }
-        }
+                https://github.com/pratheekshaprakash0299-bit/jenkins_pipeline.git
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn -B clean package -DskipTests'
+            }
+        }
+    }
 }
