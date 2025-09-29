@@ -6,6 +6,10 @@ pipeline {
         maven 'maven3'
     }
 
+    environment {
+        JFROG_USER = "your-jfrog-username"
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
@@ -22,7 +26,6 @@ pipeline {
             }
         }
 
-        stages {
         stage('Upload WAR to JFrog') {
             steps {
                 withCredentials([string(credentialsId: 'jfrog-creds', variable: 'JFROG_TOKEN')]) {
@@ -30,10 +33,10 @@ pipeline {
                         echo "Uploading WAR to JFrog..."
                         WAR_FILE=$(ls sample-app/target/*.war)
                         curl -u $JFROG_USER:$JFROG_TOKEN -T $WAR_FILE \
-                        https://trial9krpxa.jfrog.io/artifactory/DevOps/sample-app-build-15-sample.war
+                        "https://trial9krpxa.jfrog.io/artifactory/DevOps/${JOB_NAME}-${BUILD_NUMBER}-sample.war"
                     '''
                 }
             }
-        }
-    }
+        }
+    }
 }
