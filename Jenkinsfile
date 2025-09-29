@@ -21,5 +21,18 @@ pipeline {
                 }
             }
         }
-}
+
+        stage('Upload to JFrog') {
+            steps {
+                withCredentials([string(credentialsId: 'jfrog_token', variable: 'JFROG_TOKEN')]) {
+                    sh '''
+                        echo "Uploading WAR to JFrog using token..."
+                        WAR_FILE=$(ls sample-app/target/*.war)
+                        curl -H "Authorization: Bearer $JFROG_TOKEN" -T $WAR_FILE \
+                        "https://trial9krpxa.jfrog.io/artifactory/testrepo-generic-local/${JOB_NAME}-${BUILD_NUMBER}-sample.war"
+                    '''
+                }
+            }
+        }
+    }
 }
