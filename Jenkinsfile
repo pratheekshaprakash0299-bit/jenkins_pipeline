@@ -2,22 +2,24 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk17'      // must match Manage Jenkins → Tools name
-        maven 'maven3'   // must match Tools name
+        jdk 'jdk17'
+        maven 'maven3'
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                https://github.com/pratheekshaprakash0299-bit/jenkins_pipeline.git
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/Suprith25/Java-mini-project.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn -B clean package -DskipTests'
-            }
-        }
-    }
+                dir('sample-app') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+}
 }
