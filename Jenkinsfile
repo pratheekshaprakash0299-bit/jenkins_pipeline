@@ -28,7 +28,7 @@ pipeline {
 
         stage('Upload to JFrog') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'jfrog-creds',
+                withCredentials([usernamePassword(credentialsId: 'jfrog-cred',
                                                  usernameVariable: 'JFROG_USER',
                                                  passwordVariable: 'JFROG_PASS')]) {
                     sh '''
