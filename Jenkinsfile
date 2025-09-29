@@ -19,7 +19,7 @@ pipeline {
                 dir('sample-app') {
                     sh 'mvn clean package -DskipTests'
                 }
-            }
-        }
+            }
+        }
 }
 }
