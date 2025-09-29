@@ -24,12 +24,12 @@ pipeline {
 
         stage('Upload to JFrog') {
             steps {
-                withCredentials([string(credentialsId: 'jfrog_token', variable: 'JFROG_TOKEN')]) {
+                withCredentials([string(credentialsId: 'jfrog_creds', variable: 'JFROG_CREDS')]) {
                     sh '''
                         echo "Uploading WAR to JFrog using token..."
                         WAR_FILE=$(ls sample-app/target/*.war)
                         curl -H "Authorization: Bearer $JFROG_TOKEN" -T $WAR_FILE \
-                        "https://trial9krpxa.jfrog.io/artifactory/testrepo-generic-local/${JOB_NAME}-${BUILD_NUMBER}-sample.war"
+                        "https://trialxl53ee.jfrog.io/artifactory/DevOps/${JOB_NAME}-${BUILD_NUMBER}-sample.war"
                     '''
                 }
             }
